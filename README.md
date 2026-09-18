@@ -1,5 +1,7 @@
 # IA Lab — laboratoire de compétences d'un consultant formateur IA
 
+**En ligne : https://ia-lab-ochre.vercel.app**
+
 Application Next.js qui sert à la fois :
 
 - de **syllabus public** (référentiel en 7 blocs, grilles d'évaluation, glossaire, parcours) ;
