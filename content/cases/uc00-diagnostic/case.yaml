@@ -1,0 +1,671 @@
+schema_version: "1.0"
+
+meta:
+  id: uc00-diagnostic
+  titre: "UC00 — Diagnostic de positionnement : Menuiseries Talvern"
+  sous_titre: "Des demandes de devis qui s'accumulent, un SAV qui cherche ses notices et une dirigeante qui veut « son ChatGPT »"
+  type: diagnostic
+  secteur: "Menuiserie extérieure — fabrication et pose (BTP second œuvre)"
+  localisation: "Elven, Morbihan (56)"
+  duree_estimee_jours: 5.5
+  niveau_vise: N3
+  postes_vises: [ai-automation-engineer, ai-integrator, ai-product-builder, ai-architect, consultant-formateur-ia]
+  resume: >-
+    Cas de positionnement en quatre paliers de difficulté croissante couvrant les 7 blocs.
+    S'arrêter à un palier est une information en soi : le niveau par bloc correspond au palier
+    le plus élevé réussi. Les paliers P2 et P3 sont notés automatiquement par le testeur.
+  date_creation: "2026-09-18"
+  version: "1.0"
+  competences_cibles:
+    - { id: C1.1, niveau: N3, justification: "Les chiffres donnés par la direction sont contradictoires : il faut les recalculer à partir des données (délais, temps ADV)." }
+    - { id: C1.2, niveau: N3, justification: "La demande initiale (« un ChatGPT maison ») est un faux bon cas qu'il faut requalifier." }
+    - { id: C1.3, niveau: N3, justification: "Budget contraint (18 k€ HT, 250 €/mois) : business case chiffré obligatoire." }
+    - { id: C1.4, niveau: N3, justification: "Attentes divergentes entre dirigeante, DAF, commercial et ADV à arbitrer dans une note de cadrage." }
+    - { id: C2.1, niveau: N3, justification: "Workflow de traitement des demandes entrantes avec validation humaine." }
+    - { id: C2.2, niveau: N3, justification: "API CRM paginée, clé d'API, rapprochement de contacts existants." }
+    - { id: C2.3, niveau: N3, justification: "Messages livrés en double, pannes et limites de débit simulées." }
+    - { id: C2.4, niveau: N2, justification: "Runbook et transfert à un référent informatique à mi-temps." }
+    - { id: C3.1, niveau: N3, justification: "Classification et extraction structurées sur des messages hétérogènes (spam, anglais, formulaire, candidature)." }
+    - { id: C3.2, niveau: N3, justification: "Assistant SAV sur des notices et procédures, avec questions hors corpus." }
+    - { id: C3.4, niveau: N2, justification: "Évaluation chiffrée de l'assistant SAV." }
+    - { id: C4.1, niveau: N2, justification: "Nœud Code ou script de normalisation." }
+    - { id: C4.2, niveau: N3, justification: "CRM importé d'Excel avec doublons et formats incohérents." }
+    - { id: C5.1, niveau: N3, justification: "Architecture cible dimensionnée pour une PME sans DSI." }
+    - { id: C5.2, niveau: N3, justification: "Exigence d'hébergement européen du DAF." }
+    - { id: C5.3, niveau: N3, justification: "Injection de prompt et données bancaires dans les messages entrants." }
+    - { id: C5.4, niveau: N2, justification: "Indicateurs de suivi attendus par la direction." }
+    - { id: C6.1, niveau: N3, justification: "Données de particuliers, candidatures, IBAN : minimisation et base légale." }
+    - { id: C6.2, niveau: N3, justification: "Réponses automatisées aux clients : transparence (art. 50) ; littératie des équipes (art. 4)." }
+    - { id: C6.3, niveau: N3, justification: "Shadow AI avéré chez les commerciaux et l'ADV." }
+    - { id: C7.1, niveau: N2, justification: "Interface de validation des brouillons pour l'ADV." }
+    - { id: C7.2, niveau: N3, justification: "Pitch à une dirigeante enthousiaste et un DAF sceptique." }
+    - { id: C7.3, niveau: N3, justification: "Responsable ADV réticente, chef d'atelier opposé." }
+    - { id: C7.4, niveau: N3, justification: "Plan de formation des équipes (littératie IA)." }
+
+entreprise:
+  nom: "Menuiseries Talvern"
+  forme_juridique: "SAS au capital de 180 000 €"
+  effectif: 38
+  chiffre_affaires: "6,2 M€ HT (2025)"
+  creation: 1994
+  adresse: "14 rue des Charpentiers, ZA de Lann Vras, 56250 Elven (adresse fictive)"
+  activite_md: |
+    Fabrication (aluminium et bois) et pose de **menuiseries extérieures** : fenêtres, baies coulissantes, portes d'entrée, volets, portails et portes de garage. Le PVC est acheté en négoce auprès d'un fabricant partenaire puis posé par les équipes Talvern.
+
+    - **Atelier** (Elven) : 12 personnes, découpe et assemblage alu, menuiserie bois.
+    - **Pose** : 5 équipes de 2 poseurs, zone Morbihan et nord Loire-Atlantique.
+    - **Bureau** : direction, administration des ventes (ADV), commerciaux, comptabilité, SAV.
+    - Entreprise certifiée **RGE** (Qualibat) : une part importante des chantiers de particuliers est liée à la rénovation énergétique.
+  histoire_md: |
+    Fondée en 1994 par **Yves Talvern**, menuisier, l'entreprise a grandi grâce au bouche-à-oreille et aux chantiers de rénovation autour du golfe du Morbihan. Sa fille **Gwenola Talvern** l'a reprise en 2016 après quinze ans dans la grande distribution. Elle a professionnalisé la partie commerciale (showroom en 2019, site web en 2020, CRM en 2024) mais les outils se sont empilés sans être reliés.
+
+    Depuis 2024, la croissance ralentit : les demandes de devis restent nombreuses mais le taux de transformation baisse. Les concurrents régionaux promettent « un devis sous 48 h ». En juin 2026, le comité de direction a inscrit « l'IA » dans ses priorités, après une matinale de la CCI sur le sujet.
+  chiffres_cles:
+    - { label: "Chiffre d'affaires 2025", valeur: "6,2 M€ HT (−3 % vs 2024)" }
+    - { label: "Chantiers réalisés / an", valeur: "≈ 1 900" }
+    - { label: "Part des particuliers", valeur: "≈ 70 % du CA" }
+    - { label: "Panier moyen particulier", valeur: "≈ 7 800 € TTC" }
+    - { label: "Taux de transformation des devis", valeur: "« autour de 35 % » selon la direction (non mesuré précisément)" }
+    - { label: "Effectif bureau", valeur: "11 personnes" }
+    - { label: "Budget projet IA année 1", valeur: "18 000 € HT (hors aides), exploitation ≤ 250 €/mois" }
+  clients_md: |
+    - **Particuliers** (≈ 70 %) : rénovation de maisons individuelles, résidences secondaires sur le littoral (Carnac, Quiberon, Sarzeau), dossiers d'aides à la rénovation énergétique.
+    - **Professionnels** (≈ 30 %) : architectes, promoteurs régionaux, syndics de copropriété, quelques collectivités via marchés publics.
+    - Zone d'intervention : **Morbihan** et **nord de la Loire-Atlantique** (Blain, Nozay, Savenay, Châteaubriant). Pas de chantier dans la métropole nantaise ni hors de ces départements.
+  culture_md: |
+    Culture artisanale forte, fierté du travail bien fait, forte ancienneté à l'atelier. Au bureau, beaucoup de choses reposent sur la mémoire de quelques personnes. Les outils numériques sont vus comme « des trucs en plus à remplir ». La dirigeante est enthousiaste, parfois perçue comme « changeant de priorité tous les trois mois ».
+  enjeux:
+    - "Répondre plus vite aux demandes de devis sans recruter à l'ADV"
+    - "Fiabiliser le fichier clients (doublons, relances impossibles)"
+    - "Aider les techniciens SAV à trouver la bonne information (notices, garanties, procédures)"
+    - "Encadrer l'usage d'outils d'IA grand public par les salariés"
+    - "Préparer la transmission des savoir-faire de l'atelier (départ en retraite du chef d'atelier en 2028)"
+    - "Absorber la réception des factures électroniques (obligatoire depuis le 1er septembre 2026)"
+
+organigramme:
+  personnes:
+    - id: gwenola-talvern
+      nom: "Gwenola Talvern"
+      poste: "Présidente"
+      service: "Direction"
+      manager_id: null
+      anciennete: "10 ans (depuis la reprise en 2016)"
+      profil_md: "47 ans, ancienne cheffe de secteur en grande distribution. Décide vite, très orientée client et image. Utilise ChatGPT à titre personnel tous les jours."
+      attitude_ia: sponsor
+      enjeux: ["Relancer la croissance sans alourdir la masse salariale", "Moderniser l'image de l'entreprise", "Préparer la transmission de l'atelier"]
+      irritants: ["Les devis partent trop tard", "Les chiffres qu'on lui remonte ne concordent jamais"]
+      email: "g.talvern@menuiseries-talvern.fr"
+      citation: "Je veux un ChatGPT maison qui répond aux clients à notre place, comme les grands."
+    - id: herve-le-goff
+      nom: "Hervé Le Goff"
+      poste: "Directeur administratif et financier"
+      service: "Administration & finances"
+      manager_id: gwenola-talvern
+      anciennete: "17 ans"
+      profil_md: "Garant du budget, de la comptabilité fournisseurs et de l'informatique « par défaut ». A choisi et payé le CRM Relatio en 2024, qu'il juge sous-utilisé. Très attentif aux risques juridiques."
+      attitude_ia: sceptique
+      enjeux: ["Maîtriser les coûts récurrents", "Aucune donnée client hors de l'Union européenne", "Réussir le passage à la facture électronique"]
+      irritants: ["Abonnements logiciels qui s'accumulent", "Personne ne met le CRM à jour"]
+      email: "h.legoff@menuiseries-talvern.fr"
+      citation: "On a déjà payé un CRM qui ne sert à rien. Avant de payer autre chose, je veux voir des chiffres."
+    - id: soazig-tanguy
+      nom: "Soazig Tanguy"
+      poste: "Responsable administration des ventes (ADV)"
+      service: "ADV"
+      manager_id: gwenola-talvern
+      anciennete: "12 ans"
+      profil_md: "Connaît tous les clients et tous les chantiers. Tient le fichier Excel de suivi des demandes, « le seul qui soit à jour ». Débordée, elle fait régulièrement des heures supplémentaires."
+      attitude_ia: reticent
+      enjeux: ["Ne plus ressaisir la même information trois fois", "Garder la maîtrise de ce qui part chez les clients"]
+      irritants: ["Ressaisie mail → Excel → CRM → Batipro", "Les commerciaux ne lui transmettent pas les demandes reçues au téléphone"]
+      email: "s.tanguy@menuiseries-talvern.fr"
+      citation: "Si une machine répond aux clients, qui se fera engueuler quand elle se trompera ? Moi."
+    - id: maelys-guillou
+      nom: "Maëlys Guillou"
+      poste: "Assistante ADV"
+      service: "ADV"
+      manager_id: soazig-tanguy
+      anciennete: "2 ans"
+      profil_md: "Arrivée en alternance, embauchée en CDI. À l'aise avec les outils numériques. Utilise un assistant IA gratuit sur son téléphone pour rédiger des réponses clients, en y collant les emails reçus."
+      attitude_ia: enthousiaste
+      enjeux: ["Gagner du temps sur les emails", "Monter en compétence"]
+      irritants: ["Chercher un client dans trois outils", "Pièces jointes illisibles (photos floues de fenêtres)"]
+      email: "m.guillou@menuiseries-talvern.fr"
+      citation: "Franchement, je gagne une heure par jour avec l'IA sur mon téléphone. Je ne vois pas le problème."
+    - id: franck-jegou
+      nom: "Franck Jégou"
+      poste: "Responsable commercial"
+      service: "Commercial"
+      manager_id: gwenola-talvern
+      anciennete: "8 ans"
+      profil_md: "Encadre deux commerciaux. Réalise lui-même les métrés des gros chantiers pros. Pense que la vitesse de réponse est le premier facteur de signature."
+      attitude_ia: neutre
+      enjeux: ["Un premier contact sous 48 h", "Des relances automatiques des devis envoyés"]
+      irritants: ["Leads perdus faute de rappel", "Saisie CRM chronophage"]
+      email: "f.jegou@menuiseries-talvern.fr"
+      citation: "Un devis envoyé en 48 heures, c'est deux fois plus de chances de signer. Le reste, c'est de la littérature."
+    - id: nadia-benali
+      nom: "Nadia Benali"
+      poste: "Commerciale particuliers"
+      service: "Commercial"
+      manager_id: franck-jegou
+      anciennete: "4 ans"
+      profil_md: "Meilleure vendeuse de l'équipe. Rédige ses propositions et relances avec un assistant IA grand public, en y collant nom, adresse et détails du projet du client."
+      attitude_ia: enthousiaste
+      enjeux: ["Passer plus de temps en rendez-vous", "Des relances qui ne tombent pas dans l'oubli"]
+      irritants: ["Le CRM ne lui rappelle rien", "Doublons de clients"]
+      email: "n.benali@menuiseries-talvern.fr"
+    - id: yann-le-du
+      nom: "Yann Le Du"
+      poste: "Commercial particuliers et référent informatique"
+      service: "Commercial"
+      manager_id: franck-jegou
+      anciennete: "6 ans"
+      profil_md: "Commercial le plus à l'aise avec l'informatique : gère les comptes Google, les sauvegardes du serveur Batipro et « dépanne tout le monde ». Environ un jour par semaine y passe, sans que ce soit officiel."
+      attitude_ia: enthousiaste
+      enjeux: ["Être reconnu comme référent", "Ne pas devenir la hotline de l'IA"]
+      irritants: ["Aucune documentation des outils", "Mots de passe partagés sur des post-it"]
+      email: "y.ledu@menuiseries-talvern.fr"
+      citation: "Si on met un outil, il faut que je sois capable de le réparer un vendredi soir."
+    - id: erwan-cadoret
+      nom: "Erwan Cadoret"
+      poste: "Responsable SAV et planification de la pose"
+      service: "Pose & SAV"
+      manager_id: gwenola-talvern
+      anciennete: "11 ans"
+      profil_md: "Planifie les 5 équipes de pose et traite les réclamations. Ses deux techniciens SAV l'appellent plusieurs fois par jour pour retrouver une notice, un réglage ou une condition de garantie."
+      attitude_ia: neutre
+      enjeux: ["Réduire les déplacements inutiles", "Que les techniciens soient autonomes"]
+      irritants: ["140 notices PDF mal nommées sur le Drive", "Clients qui appellent directement les poseurs"]
+      email: "e.cadoret@menuiseries-talvern.fr"
+    - id: thierry-le-bihan
+      nom: "Thierry Le Bihan"
+      poste: "Chef d'atelier"
+      service: "Atelier"
+      manager_id: gwenola-talvern
+      anciennete: "29 ans"
+      profil_md: "Mémoire technique de l'entreprise, départ en retraite prévu en mars 2028. Méfiant envers tout ce qui ressemble à du contrôle ou à de la paperasse supplémentaire."
+      attitude_ia: bloquant
+      enjeux: ["Que l'atelier ne soit pas « piloté par un écran »", "Transmettre à son successeur"]
+      irritants: ["Fiches de fabrication mal remplies par le bureau", "Changements de dernière minute"]
+      citation: "Une machine, ça ne sait pas poser une fenêtre. Et moi je n'ai pas le temps de lui apprendre."
+    - id: julie-roparz
+      nom: "Julie Roparz"
+      poste: "Comptable"
+      service: "Administration & finances"
+      manager_id: herve-le-goff
+      anciennete: "5 ans"
+      profil_md: "Gère la comptabilité fournisseurs (≈ 120 factures/mois) et la facturation clients depuis Batipro. Découvre la plateforme de facturation électronique mise en place en août 2026."
+      attitude_ia: neutre
+      enjeux: ["Ne pas saisir deux fois les factures reçues", "Clôtures mensuelles plus sereines"]
+      irritants: ["Factures reçues en double (PDF par email + plateforme)", "Relances de paiement manuelles"]
+      email: "j.roparz@menuiseries-talvern.fr"
+
+stack:
+  logiciels:
+    - id: google-workspace
+      nom: "Google Workspace (Business Starter)"
+      categorie: "Messagerie et bureautique"
+      usage_md: "16 comptes. La boîte **contact@menuiseries-talvern.fr** est un groupe Google partagé entre l'ADV et les commerciaux : environ 80 emails par semaine (demandes de devis, SAV, fournisseurs, candidatures, prospection, spam). Personne n'est responsable de son tri : chacun « prend ce qui le concerne »."
+      utilisateurs: ["Bureau (11 personnes)", "Chefs d'équipe de pose (5)"]
+      cout_annuel: "≈ 1 650 € HT"
+      donnees: ["Emails clients et fournisseurs", "Pièces jointes (photos, plans, PDF)", "Agendas des métrés"]
+      irritants: ["Emails traités deux fois ou pas du tout", "Aucune règle de tri", "Pièces jointes volumineuses"]
+      acces: { type: email, note: "Simulée par l'inbox de l'API sandbox (mode pull)." }
+    - id: site-web
+      nom: "Site vitrine WordPress + formulaire de contact"
+      categorie: "Site web"
+      usage_md: "Réalisé en 2020 par une agence locale. Le formulaire « Demande de devis » envoie un email texte vers contact@ avec des champs libres."
+      utilisateurs: ["Prospects"]
+      cout_annuel: "≈ 600 € HT (hébergement et maintenance)"
+      donnees: ["Nom, email, téléphone, code postal, description du projet"]
+      irritants: ["Champs non obligatoires : beaucoup de demandes incomplètes", "Spam via le formulaire"]
+      acces: { type: email, note: "Les soumissions arrivent dans l'inbox avec canal = formulaire." }
+    - id: relatio
+      nom: "Relatio — CRM (SaaS, éditeur fictif)"
+      categorie: "CRM"
+      usage_md: "Mis en place en 2024 : contacts, pipeline des demandes, module SAV activé en 2025. Import initial depuis l'Excel clients historique, **sans dédoublonnage**. Mis à jour de façon irrégulière. Dispose d'une **API REST** documentée (clé d'API)."
+      utilisateurs: ["ADV", "Commerciaux", "SAV"]
+      cout_annuel: "1 800 € HT (5 licences)"
+      donnees: ["Contacts clients et prospects", "Demandes (pipeline)", "Tickets SAV", "Catalogue produits"]
+      irritants: ["Doublons", "Formats de téléphone hétérogènes", "Champs obligatoires contournés"]
+      acces: { type: api_sandbox, ressources: [contacts, demandes, tickets, produits] }
+    - id: batipro
+      nom: "Batipro — ERP métier (logiciel fictif, installé en local)"
+      categorie: "ERP devis / facturation"
+      usage_md: "Installé en 2011 sur un serveur au bureau. Chiffrage des devis, commandes fournisseurs, fiches de fabrication, facturation. **Aucune API** : seuls des exports CSV/Excel manuels sont possibles. Le code client Batipro ne correspond pas à l'identifiant Relatio."
+      utilisateurs: ["ADV", "DAF", "Comptable", "Atelier (fiches de fabrication)"]
+      cout_annuel: "2 400 € HT (maintenance)"
+      donnees: ["Devis et commandes", "Factures clients", "Fiches de fabrication"]
+      irritants: ["Ressaisie des coordonnées clients", "Pas d'accès à distance", "Éditeur peu réactif"]
+      acces: { type: export_fichier, ressources: [devis_erp], note: "Export fourni par le DAF (12 derniers mois)." }
+    - id: suivi-temps
+      nom: "Relevé de temps ADV (Google Sheets)"
+      categorie: "Fichier ponctuel"
+      usage_md: "À la demande de la direction, l'ADV a noté ses tâches pendant deux semaines (fin août – début septembre 2026)."
+      utilisateurs: ["ADV"]
+      donnees: ["Tâches, durées, volumes, commentaires"]
+      irritants: ["Relevé déclaratif, probablement incomplet"]
+      acces: { type: export_fichier, ressources: [releve_temps_adv] }
+    - id: drive-sav
+      nom: "Dossier Drive « SAV / Notices et procédures »"
+      categorie: "Documentation"
+      usage_md: "Environ 140 fichiers PDF (notices fabricants, fiches produits, procédures internes) nommés de façon incohérente. Les techniciens y accèdent depuis leur téléphone, avec difficulté."
+      utilisateurs: ["SAV", "Poseurs", "ADV"]
+      donnees: ["Notices d'entretien et de réglage", "Procédures internes", "Conditions de garantie"]
+      irritants: ["Introuvable sur le terrain", "Versions obsolètes mélangées aux actuelles"]
+      acces: { type: api_sandbox, ressources: [documents], note: "Un extrait représentatif est exposé via /documents." }
+    - id: assistants-ia
+      nom: "Assistants IA grand public (comptes personnels)"
+      categorie: "IA générative — usage non encadré"
+      usage_md: "Au moins trois salariés utilisent des assistants gratuits sur leur téléphone ou leur ordinateur pour rédiger des emails, des relances et des descriptifs, en y collant des données clients. Aucune règle n'existe ; la charte informatique date de 2019."
+      utilisateurs: ["Commerciaux", "ADV"]
+      donnees: ["Noms, adresses et projets de clients", "Extraits de devis"]
+      irritants: ["Aucune visibilité de la direction", "Risque de fuite de données"]
+      acces: { type: aucun }
+    - id: plateforme-efacture
+      nom: "Plateforme agréée de facturation électronique"
+      categorie: "Facturation électronique"
+      usage_md: "Choisie via l'expert-comptable et activée en août 2026 pour la **réception** obligatoire des factures fournisseurs. L'émission deviendra obligatoire pour Talvern au 1er septembre 2027."
+      utilisateurs: ["Comptable", "DAF"]
+      donnees: ["Factures fournisseurs structurées"]
+      irritants: ["Doublons avec les PDF reçus par email", "Imputation manuelle"]
+      acces: { type: aucun, note: "Hors périmètre technique de ce cas, à prendre en compte dans la feuille de route." }
+    - id: telephone
+      nom: "Standard téléphonique et messagerie vocale"
+      categorie: "Téléphonie"
+      usage_md: "Environ un quart des demandes arrivent par téléphone. Elles sont notées sur papier ou pas du tout."
+      utilisateurs: ["Tout le bureau"]
+      donnees: ["Demandes orales"]
+      irritants: ["Demandes perdues", "Pas de trace dans le CRM"]
+      acces: { type: aucun }
+
+brief:
+  email:
+    de: "Gwenola Talvern <g.talvern@menuiseries-talvern.fr>"
+    a: "Consultant·e IA"
+    date: "2026-09-14"
+    objet: "Suite à notre échange — projet IA chez Talvern"
+    corps_md: |
+      Bonjour,
+
+      Merci encore pour votre intervention à la matinale de la CCI, elle a fait beaucoup parler chez nous ! Comme convenu, je vous écris pour lancer quelque chose rapidement.
+
+      En résumé, ce que je voudrais :
+
+      1. **Un ChatGPT maison** qui réponde aux clients sur notre site et par email, 24 h/24, comme le font les grandes enseignes.
+      2. **Automatiser les devis** : aujourd'hui on met une semaine à rappeler les gens et les concurrents répondent en 48 h.
+      3. Que mes commerciaux **arrêtent de mettre les données clients dans ChatGPT** sur leur téléphone (Hervé m'a alertée, il a raison).
+      4. **Former les équipes**, parce que certains sont très motivés et d'autres pas du tout.
+
+      On reçoit entre 60 et 80 demandes de devis par semaine, et je pense qu'on en perd un tiers. Côté budget, on a prévu environ 15 à 20 k€ cette année. J'ai aussi entendu parler d'un diagnostic IA de Bpifrance, si ça peut aider.
+
+      J'aimerais avoir quelque chose de visible avant le salon de l'habitat de décembre.
+
+      Je vous joins quelques exports qu'Hervé et Soazig ont préparés. Soazig est un peu inquiète, je compte sur vous pour la rassurer.
+
+      Bien cordialement,
+
+      **Gwenola Talvern**
+      Présidente — Menuiseries Talvern
+  compte_rendu_md: |
+    **Compte rendu — réunion de lancement du 10 septembre 2026 (notes prises par Maëlys Guillou)**
+
+    Présents : Gwenola Talvern (présidente), Hervé Le Goff (DAF), Soazig Tanguy (ADV), Franck Jégou (commercial). Excusé : Erwan Cadoret (SAV, en chantier).
+
+    - **Gwenola** : veut « un assistant qui répond tout seul aux clients » et « des devis automatiques ». Cite l'exemple d'un concurrent qui a un chatbot sur son site.
+    - **Franck** : le vrai sujet, c'est le délai : « on rappelle au bout d'une semaine, parfois plus ». Il voudrait que chaque demande soit dans le CRM avec le bon commercial dans l'heure. Ne veut pas que « l'IA fasse les prix ».
+    - **Hervé** : d'accord pour avancer mais « pas de données chez les Américains », et un coût mensuel maîtrisé. Rappelle que Relatio coûte 1 800 € par an et que « personne ne l'utilise ». Demande qui sera responsable si une réponse automatique est fausse.
+    - **Soazig** : a passé deux semaines à noter son temps (fichier joint). Dit qu'elle passe « la moitié de ses journées à recopier ». Ne veut pas que des emails partent aux clients sans qu'elle les ait relus. Demande si « ça va remplacer quelqu'un ».
+    - Chiffres évoqués en réunion : « 60 à 80 demandes de devis par semaine » (Gwenola), « une trentaine de vraies demandes, le reste c'est du SAV et du spam » (Soazig), « on répond en 3 jours » (Gwenola), « une semaine » (Franck). **Personne n'a de chiffre fiable.**
+    - SAV : Erwan a fait passer le message que ses techniciens perdent « un temps fou » à chercher les notices et les conditions de garantie.
+    - Divers : les candidatures spontanées (poseurs) arrivent aussi sur contact@ ; le chef d'atelier part en retraite en 2028 ; la facture électronique « on verra plus tard ».
+    - **Points non tranchés** : qui valide les réponses envoyées aux clients ? Où sont hébergées les données ? Que fait-on des demandes reçues par téléphone ? Faut-il vraiment un chatbot sur le site ?
+  contraintes:
+    budget: "18 000 € HT en année 1 (conseil, formation, mise en œuvre, hors aides éventuelles) ; exploitation ≤ 250 € HT/mois"
+    delai: "Premiers résultats visibles avant le 15 décembre 2026"
+    techniques:
+      - "Pas de DSI : un référent informatique à ~1 jour/semaine (Yann Le Du)"
+      - "Google Workspace, CRM Relatio (API REST), ERP Batipro sans API (exports manuels)"
+      - "Préférence forte pour un hébergement des données dans l'Union européenne"
+      - "Solutions maintenables par le référent, documentées en français"
+    reglementaires:
+      - "RGPD : données de particuliers (identité, adresse, projet, photos de logement), candidatures, parfois coordonnées bancaires"
+      - "AI Act : transparence envers les clients si une IA leur répond (art. 50) ; mesures de littératie IA pour les salariés (art. 4)"
+      - "Facturation électronique : réception obligatoire depuis le 1er septembre 2026, émission au 1er septembre 2027"
+
+donnees:
+  seed: 20260914
+  tables:
+    - nom: clients
+      description: "Contacts du CRM Relatio, importés en 2024 depuis l'Excel historique puis complétés à la main."
+      source: "CRM Relatio (export complet)"
+      lignes: 460
+      champs:
+        - { nom: id, type: id, options: { prefixe: "CLI-" } }
+        - { nom: civilite, type: enum, options: { valeurs: ["M.", "Mme", "M. et Mme"], poids: [45, 40, 15] } }
+        - { nom: prenom, type: string, generateur: person.firstName }
+        - { nom: nom, type: string, generateur: person.lastName }
+        - { nom: email, type: email, options: { depuis_champs: [prenom, nom] }, nullable: 0.07 }
+        - { nom: telephone, type: phone }
+        - { nom: adresse, type: string, generateur: location.streetAddress }
+        - nom: commune
+          type: enum
+          options:
+            valeurs: ["Vannes", "Auray", "Elven", "Plescop", "Theix-Noyalo", "Séné", "Arradon", "Saint-Avé", "Grand-Champ", "Carnac", "Quiberon", "Sarzeau", "Questembert", "Muzillac", "Ploërmel", "Josselin", "Locminé", "Pontivy", "Lorient", "Hennebont", "La Roche-Bernard", "Blain", "Nozay", "Savenay"]
+            poids: [18, 7, 6, 5, 5, 5, 4, 5, 3, 4, 3, 4, 3, 3, 3, 2, 2, 3, 4, 3, 2, 2, 1, 2]
+        - nom: code_postal
+          type: string
+          options:
+            correspondances:
+              depuis: commune
+              table: { "Vannes": "56000", "Auray": "56400", "Elven": "56250", "Plescop": "56890", "Theix-Noyalo": "56450", "Séné": "56860", "Arradon": "56610", "Saint-Avé": "56890", "Grand-Champ": "56390", "Carnac": "56340", "Quiberon": "56170", "Sarzeau": "56370", "Questembert": "56230", "Muzillac": "56190", "Ploërmel": "56800", "Josselin": "56120", "Locminé": "56500", "Pontivy": "56300", "Lorient": "56100", "Hennebont": "56700", "La Roche-Bernard": "56130", "Blain": "44130", "Nozay": "44170", "Savenay": "44260" }
+        - { nom: type_client, type: enum, options: { valeurs: [particulier, professionnel], poids: [86, 14] } }
+        - { nom: societe, type: string, nullable: 0.86, options: { modeles: ["SCI {person.lastName}", "{person.lastName} Immobilier", "Cabinet {person.lastName} Architecture", "{person.lastName} Rénovation", "Syndic {location.city}"] } }
+        - { nom: source, type: enum, options: { valeurs: [site_web, telephone, salon, recommandation, magasin, apporteur_affaires], poids: [30, 22, 10, 20, 12, 6] } }
+        - { nom: commercial, type: enum, options: { valeurs: [nadia.benali, yann.le-du, franck.jegou], poids: [45, 35, 20] } }
+        - { nom: cree_le, type: date, options: { depuis: "2016-01-04", jusqua: "2026-08-31" } }
+        - { nom: consentement_marketing, type: bool, options: { proba: 0.3 } }
+        - nom: notes
+          type: text
+          options:
+            modeles: ["", "", "", "", "Préfère être contacté par téléphone", "Rappeler après 18h", "Résidence secondaire, présent l'été", "Client fidèle — plusieurs chantiers", "Parrainé par un client", "Chantier en copropriété, accord du syndic nécessaire", "Ne pas appeler le mercredi", "Demande de devis restée sans suite en 2024", "Voisin d'un chantier réalisé"]
+      anomalies:
+        - { type: doublon_approx, taux: 0.07, champs: [nom, prenom, adresse] }
+        - { type: doublon_exact, taux: 0.02 }
+        - { type: telephone_format, taux: 0.35 }
+        - { type: email_invalide, taux: 0.03 }
+        - { type: casse, taux: 0.08, champs: [nom, prenom] }
+        - { type: espaces, taux: 0.05, champs: [nom, adresse] }
+        - { type: valeur_manquante, taux: 0.04, champs: [telephone] }
+      fixtures:
+        - { id: CLI-9001, civilite: "Mme", prenom: "Anne", nom: "Le Floch", email: "anne.lefloch@orange.fr", telephone: "06 45 12 78 90", adresse: "8 impasse des Mimosas", commune: "Carnac", code_postal: "56340", type_client: particulier, societe: null, source: recommandation, commercial: nadia.benali, cree_le: "2023-05-12", consentement_marketing: true, notes: "Fenêtres alu posées en 2023 (chantier 23-118)" }
+        - { id: CLI-9002, civilite: "M.", prenom: "Jean-Yves", nom: "Guégan", email: "jean-yves.guegan@wanadoo.fr", telephone: "06 12 34 56 78", adresse: "3 rue du Lavoir", commune: "Elven", code_postal: "56250", type_client: particulier, societe: null, source: salon, commercial: yann.le-du, cree_le: "2021-10-02", consentement_marketing: false, notes: "Porte d'entrée alu posée en 2022" }
+        - { id: CLI-9003, civilite: "M.", prenom: "JEAN-YVES", nom: "GUEGAN", email: "JEAN-YVES.GUEGAN@WANADOO.FR", telephone: "+33612345678", adresse: "3 r. du lavoir", commune: "Elven", code_postal: "56250", type_client: particulier, societe: null, source: salon, commercial: nadia.benali, cree_le: "2024-03-16", consentement_marketing: false, notes: "Créé au salon 2024" }
+        - { id: CLI-9004, civilite: "M.", prenom: "Paul", nom: "Rivoal", email: "paul.rivoal@free.fr", telephone: "07 81 22 45 10", adresse: "22 route de Penvins", commune: "Sarzeau", code_postal: "56370", type_client: particulier, societe: null, source: site_web, commercial: yann.le-du, cree_le: "2024-02-20", consentement_marketing: false, notes: "Volets roulants Solia RS posés en avril 2024" }
+        - { id: CLI-9005, civilite: "M. et Mme", prenom: "Loïc", nom: "Kerhervé", email: "loic.kerherve@gmail.com", telephone: "06 70 88 14 32", adresse: "5 allée des Goélands", commune: "Arradon", code_postal: "56610", type_client: particulier, societe: null, source: recommandation, commercial: nadia.benali, cree_le: "2022-06-08", consentement_marketing: true, notes: "Baie coulissante Aluna 70 Slide posée en 2025" }
+
+    - nom: produits
+      description: "Catalogue simplifié (familles, prix de base indicatifs, délais)."
+      source: "CRM Relatio — catalogue"
+      lignes: 0
+      champs:
+        - { nom: id, type: id }
+        - { nom: designation, type: string }
+        - { nom: famille, type: string }
+        - { nom: materiau, type: string }
+        - { nom: prix_base_ht, type: float }
+        - { nom: delai_fabrication_semaines, type: string }
+        - { nom: origine, type: string }
+      fixtures:
+        - { id: PRD-A70-F, designation: "Fenêtre aluminium Aluna 70", famille: fenetre, materiau: aluminium, prix_base_ht: 690, delai_fabrication_semaines: "6-8", origine: atelier }
+        - { id: PRD-A70-S, designation: "Baie coulissante Aluna 70 Slide", famille: baie_coulissante, materiau: aluminium, prix_base_ht: 2450, delai_fabrication_semaines: "6-8", origine: atelier }
+        - { id: PRD-PVC-F, designation: "Fenêtre PVC Clarté 70", famille: fenetre, materiau: pvc, prix_base_ht: 380, delai_fabrication_semaines: "4-5", origine: negoce }
+        - { id: PRD-BOIS-F, designation: "Fenêtre bois Chêne Tradition", famille: fenetre, materiau: bois, prix_base_ht: 940, delai_fabrication_semaines: "8-10", origine: atelier }
+        - { id: PRD-HOR-P, designation: "Porte d'entrée PVC Horizon", famille: porte_entree, materiau: pvc, prix_base_ht: 1850, delai_fabrication_semaines: "5-6", origine: negoce }
+        - { id: PRD-MONO-P, designation: "Porte d'entrée aluminium Monolithe", famille: porte_entree, materiau: aluminium, prix_base_ht: 3200, delai_fabrication_semaines: "7-9", origine: atelier }
+        - { id: PRD-SOLIA, designation: "Volet roulant Solia RS motorisé radio", famille: volet_roulant, materiau: aluminium, prix_base_ht: 520, delai_fabrication_semaines: "3-4", origine: negoce }
+        - { id: PRD-VB-PVC, designation: "Volet battant PVC", famille: volet_battant, materiau: pvc, prix_base_ht: 310, delai_fabrication_semaines: "4-5", origine: negoce }
+        - { id: PRD-LAN-B, designation: "Portail aluminium battant Lanvaux", famille: portail, materiau: aluminium, prix_base_ht: 2900, delai_fabrication_semaines: "6-8", origine: atelier }
+        - { id: PRD-LAN-C, designation: "Portail aluminium coulissant Lanvaux", famille: portail, materiau: aluminium, prix_base_ht: 3400, delai_fabrication_semaines: "6-8", origine: atelier }
+        - { id: PRD-MOT-PORT, designation: "Motorisation de portail", famille: portail, materiau: autre, prix_base_ht: 890, delai_fabrication_semaines: "2", origine: negoce }
+        - { id: PRD-GAR-S, designation: "Porte de garage sectionnelle", famille: porte_garage, materiau: acier, prix_base_ht: 1950, delai_fabrication_semaines: "5-6", origine: negoce }
+
+    - nom: demandes
+      description: "Pipeline des demandes (mars – septembre 2026), saisi à la main dans Relatio à partir du fichier Excel de l'ADV."
+      source: "CRM Relatio — pipeline"
+      lignes: 260
+      champs:
+        - { nom: id, type: id, options: { prefixe: "DEM-" } }
+        - { nom: recue_le, type: date, options: { depuis: "2026-03-02", jusqua: "2026-09-11" } }
+        - { nom: canal, type: enum, options: { valeurs: [email, formulaire_site, telephone, salon, magasin], poids: [38, 27, 25, 4, 6] } }
+        - { nom: contact_id, type: ref, options: { ref_table: clients } }
+        - { nom: type_demande, type: enum, options: { valeurs: [devis_fenetre, devis_porte, devis_volet, devis_baie, devis_portail, sav, information, autre], poids: [38, 14, 16, 10, 6, 8, 5, 3] } }
+        - nom: resume
+          type: text
+          options:
+            modeles: ["Remplacement fenêtres double vitrage, maison années 80", "Porte d'entrée aluminium avec vitrage latéral", "Motorisation des volets roulants existants", "Baie coulissante alu 3 vantaux pour le séjour", "Portail battant alu et motorisation", "Fenêtres bois chêne pour longère en rénovation", "Rénovation énergétique, dossier d'aide en cours", "Volets battants PVC, maison neuve", "Porte de garage sectionnelle motorisée", "Fenêtres PVC appartement 3e étage (copropriété)", "Devis comparatif, déjà deux devis concurrents"]
+        - nom: commune
+          type: enum
+          options:
+            valeurs: ["Vannes", "Auray", "Elven", "Plescop", "Theix-Noyalo", "Séné", "Arradon", "Saint-Avé", "Carnac", "Quiberon", "Sarzeau", "Questembert", "Ploërmel", "Pontivy", "Lorient", "Blain", "Savenay"]
+            poids: [20, 8, 6, 5, 5, 5, 4, 5, 5, 3, 5, 3, 3, 3, 4, 2, 2]
+        - nom: code_postal
+          type: string
+          options:
+            correspondances:
+              depuis: commune
+              table: { "Vannes": "56000", "Auray": "56400", "Elven": "56250", "Plescop": "56890", "Theix-Noyalo": "56450", "Séné": "56860", "Arradon": "56610", "Saint-Avé": "56890", "Carnac": "56340", "Quiberon": "56170", "Sarzeau": "56370", "Questembert": "56230", "Ploërmel": "56800", "Pontivy": "56300", "Lorient": "56100", "Blain": "44130", "Savenay": "44260" }
+        - { nom: montant_estime_ht, type: float, nullable: 0.35, options: { min: 1200, max: 28000, decimales: 0 } }
+        - { nom: premiere_reponse_le, type: date, nullable: 0.08, options: { base: recue_le, decalage_jours: [0, 14], jusqua: "2026-09-14" } }
+        - { nom: rdv_metre_le, type: date, nullable: 0.3, options: { base: premiere_reponse_le, decalage_jours: [2, 15], jusqua: "2026-09-14" } }
+        - { nom: devis_envoye_le, type: date, nullable: 0.15, options: { base: rdv_metre_le, decalage_jours: [1, 10], jusqua: "2026-09-14" } }
+        - { nom: statut, type: enum, options: { valeurs: [nouvelle, a_qualifier, qualifiee, rdv_planifie, devis_envoye, gagnee, perdue, sans_suite], poids: [3, 6, 5, 8, 30, 22, 16, 10] } }
+        - { nom: motif_perte, type: enum, nullable: 0.7, options: { valeurs: [prix, delai_reponse, concurrent, projet_abandonne, sans_reponse], poids: [25, 30, 20, 15, 10] } }
+        - { nom: commercial, type: enum, options: { valeurs: [nadia.benali, yann.le-du, franck.jegou], poids: [45, 35, 20] } }
+        - { nom: urgence, type: enum, options: { valeurs: [basse, normale, haute], poids: [20, 72, 8] } }
+        - { nom: source_message_id, type: string, nullable: 1 }
+      anomalies:
+        - { type: date_format, taux: 0.05, champs: [recue_le] }
+        - { type: espaces, taux: 0.03, champs: [resume] }
+
+    - nom: tickets
+      description: "Tickets SAV ouverts depuis l'activation du module SAV de Relatio."
+      source: "CRM Relatio — module SAV"
+      lignes: 95
+      champs:
+        - { nom: id, type: id, options: { prefixe: "SAV-" } }
+        - { nom: ouvert_le, type: date, options: { depuis: "2025-09-01", jusqua: "2026-09-10" } }
+        - { nom: contact_id, type: ref, options: { ref_table: clients } }
+        - { nom: produit, type: enum, options: { valeurs: [fenetre_alu, fenetre_pvc, fenetre_bois, porte_entree, volet_roulant, baie_coulissante, portail, porte_garage], poids: [18, 16, 8, 12, 22, 10, 8, 6] } }
+        - nom: symptome
+          type: text
+          options:
+            modeles: ["Fenêtre qui ne ferme plus correctement", "Infiltration d'eau en bas de la baie par forte pluie", "Volet roulant bloqué à mi-hauteur", "Télécommande du volet ne répond plus", "Buée entre les deux vitres", "Porte d'entrée qui frotte en haut", "Serrure difficile à verrouiller", "Joint décollé côté charnières", "Sifflement par vent fort", "Portail qui ne se referme pas complètement"]
+        - { nom: date_pose, type: date, options: { depuis: "2014-01-01", jusqua: "2026-06-30" } }
+        - { nom: garantie, type: enum, options: { valeurs: [parfait_achevement, biennale, decennale, fabricant, hors_garantie, a_determiner], poids: [10, 15, 12, 18, 25, 20] } }
+        - { nom: statut, type: enum, options: { valeurs: [ouvert, diagnostic_planifie, en_attente_piece, resolu, clos], poids: [15, 15, 10, 25, 35] } }
+        - { nom: priorite, type: enum, options: { valeurs: [basse, normale, haute], poids: [25, 62, 13] } }
+        - { nom: technicien, type: enum, options: { valeurs: [mathis.le-corre, dylan.evano] } }
+        - { nom: source_message_id, type: string, nullable: 1 }
+
+    - nom: devis_erp
+      description: "Devis émis sur 12 mois, exportés de Batipro par le DAF. Le client est identifié par son nom : aucun lien direct avec les identifiants du CRM."
+      source: "Export ERP Batipro (CSV)"
+      lignes: 380
+      champs:
+        - { nom: id, type: id, options: { prefixe: "D-" } }
+        - { nom: client_ref, type: ref, masque: true, options: { ref_table: clients } }
+        - { nom: client_nom, type: string, options: { copie: { ref_champ: client_ref, champ: nom }, format: upper } }
+        - { nom: client_prenom, type: string, options: { copie: { ref_champ: client_ref, champ: prenom } } }
+        - { nom: client_cp, type: string, options: { copie: { ref_champ: client_ref, champ: code_postal } } }
+        - { nom: date_devis, type: date, options: { depuis: "2025-09-01", jusqua: "2026-08-31" } }
+        - { nom: produit_principal, type: enum, options: { valeurs: [fenetre_alu, fenetre_pvc, fenetre_bois, porte_entree, volet_roulant, baie_coulissante, portail, porte_garage], poids: [22, 20, 8, 14, 14, 10, 7, 5] } }
+        - { nom: nb_elements, type: int, options: { min: 1, max: 14 } }
+        - { nom: montant_ht, type: float, options: { min: 900, max: 32000, decimales: 2 } }
+        - { nom: taux_tva, type: enum, options: { valeurs: [5.5, 10, 20], poids: [55, 35, 10] } }
+        - { nom: statut, type: enum, options: { valeurs: [accepte, refuse, en_attente, expire], poids: [34, 24, 22, 20] } }
+        - { nom: date_reponse_client, type: date, nullable: 0.3, options: { base: date_devis, decalage_jours: [3, 75], jusqua: "2026-09-14" } }
+        - { nom: commercial, type: enum, options: { valeurs: [NBENALI, YLEDU, FJEGOU], poids: [45, 35, 20] } }
+      anomalies:
+        - { type: date_format, taux: 0.08, champs: [date_devis] }
+        - { type: espaces, taux: 0.04, champs: [client_nom] }
+
+    - nom: releve_temps_adv
+      description: "Relevé déclaratif des tâches de l'ADV sur deux semaines (24 août – 4 septembre 2026)."
+      source: "Google Sheets — relevé ADV"
+      lignes: 72
+      champs:
+        - { nom: id, type: id, options: { prefixe: "RT-" } }
+        - { nom: date, type: date, options: { depuis: "2026-08-24", jusqua: "2026-09-04" } }
+        - { nom: personne, type: enum, options: { valeurs: [soazig.tanguy, maelys.guillou], poids: [50, 50] } }
+        - { nom: tache, type: enum, options: { valeurs: [tri_boite_contact, ressaisie_crm, ressaisie_excel_suivi, ressaisie_batipro, relance_devis, prise_rdv_metre, reponse_telephone, recherche_document_sav, reception_factures_fournisseurs, classement], poids: [16, 12, 10, 12, 10, 10, 12, 6, 6, 6] } }
+        - { nom: duree_min, type: int, options: { min: 10, max: 95 } }
+        - { nom: nb_elements, type: int, options: { min: 1, max: 25 } }
+        - nom: commentaire
+          type: text
+          options:
+            modeles: ["", "", "", "Beaucoup de doublons dans Relatio", "Client déjà connu mais introuvable dans le CRM", "Pièce jointe illisible (photo floue)", "Demande arrivée aussi par téléphone", "Facture fournisseur reçue en double (PDF + plateforme)", "Relance sans réponse depuis trois semaines", "Recherche d'une notice de volet : 20 min", "Demande hors zone, réponse négative à rédiger"]
+
+api:
+  ressources:
+    - nom: contacts
+      table: clients
+      description: "Contacts clients et prospects du CRM Relatio. La suppression sert à fusionner des doublons : conservez l'information utile dans la fiche gardée."
+      operations: [list, get, create, update, delete]
+      champs_requis: [nom]
+      enums: { type_client: [particulier, professionnel] }
+    - nom: demandes
+      table: demandes
+      description: "Pipeline des demandes. Toute demande créée depuis un message entrant doit porter le source_message_id du message (traçabilité)."
+      operations: [list, get, create, update]
+      champs_requis: [contact_id, type_demande, canal, resume]
+      enums:
+        type_demande: [devis_fenetre, devis_porte, devis_volet, devis_baie, devis_portail, sav, information, autre]
+        canal: [email, formulaire_site, telephone, salon, magasin]
+        statut: [nouvelle, a_qualifier, qualifiee, rdv_planifie, devis_envoye, gagnee, perdue, sans_suite]
+        urgence: [basse, normale, haute]
+    - nom: tickets
+      table: tickets
+      description: "Tickets SAV. Tout ticket créé depuis un message entrant doit porter le source_message_id du message."
+      operations: [list, get, create, update]
+      champs_requis: [contact_id, produit, symptome]
+      enums:
+        produit: [fenetre_alu, fenetre_pvc, fenetre_bois, porte_entree, volet_roulant, baie_coulissante, portail, porte_garage]
+        garantie: [parfait_achevement, biennale, decennale, fabricant, hors_garantie, a_determiner]
+        statut: [ouvert, diagnostic_planifie, en_attente_piece, resolu, clos]
+        priorite: [basse, normale, haute]
+    - nom: produits
+      table: produits
+      description: "Catalogue simplifié (lecture seule)."
+      operations: [list, get]
+  inbox:
+    active: true
+    description: "Boîte contact@menuiseries-talvern.fr et formulaire du site. Mode pull : récupérer les messages statut=nouveau, les traiter, puis les acquitter (POST /inbox/{id}/ack). Chaque message porte un message_id unique ; un même message peut être livré deux fois."
+  outbox:
+    active: true
+    description: "Brouillons de réponse aux clients. Règle de l'entreprise : aucune réponse n'est envoyée sans relecture de l'ADV → statut brouillon ou a_valider uniquement. Renseigner source_message_id."
+  documents_exposes: true
+
+paliers:
+  - id: P1
+    titre: "Cadrage et diagnostic"
+    objectif: "Transformer une demande floue et des chiffres contradictoires en une note de cadrage chiffrée, conforme et arbitrable."
+    duree_estimee_h: 8
+    competences: [C1.1, C1.2, C1.3, C1.4, C6.1, C6.2, C6.3, C7.3]
+    consignes_md: |
+      Vous êtes le/la consultant·e retenu·e par Gwenola Talvern. Avant de construire quoi que ce soit, produisez un **dossier de cadrage** destiné à la direction (Gwenola et Hervé).
+
+      1. **Diagnostic** : cartographiez le traitement actuel d'une demande de devis (de la réception à l'envoi du devis) et **quantifiez-le à partir des données fournies** (délais réels du pipeline, volumes par canal et par type, temps passé par l'ADV). Confrontez vos chiffres à ceux cités en réunion.
+      2. **Cas d'usage** : listez au moins 6 cas d'usage IA ou automatisation, qualifiez-les (données, faisabilité, risques, dépendances) et **écartez explicitement** au moins un « faux bon cas », en le justifiant.
+      3. **Priorisation et business case** : matrice valeur / effort ; pour les 2 cas prioritaires, un business case chiffré respectant le budget (18 k€ HT, ≤ 250 €/mois), hypothèses explicites.
+      4. **Conformité** : pour les cas retenus, cartographie des données personnelles, base légale, minimisation, points d'attention fournisseurs (hébergement, sous-traitance), qualification AI Act (rôle, niveau de risque, transparence art. 50, littératie art. 4).
+      5. **Gouvernance** : un projet de **charte d'usage de l'IA** (1 à 2 pages) répondant au shadow AI constaté, applicable par des non-spécialistes.
+      6. **Parties prenantes** : carte influence / attitude et premières actions d'accompagnement (dont Soazig et Thierry).
+
+      Format libre (document de 8 à 12 pages maximum + annexes). Joignez votre journal d'usage de l'IA.
+    livrables:
+      - { id: note-cadrage, nom: "Note de cadrage", format: "PDF ou page web", description: "Diagnostic chiffré, cas d'usage, priorisation, business case, périmètre du MVP, critères de succès." }
+      - { id: cartographie, nom: "Cartographie AS-IS", format: "Schéma (Mermaid, Excalidraw…)", description: "Traitement d'une demande de devis, acteurs, outils, ruptures." }
+      - { id: analyse-conformite, nom: "Analyse RGPD / AI Act", format: "Tableau ou fiche", description: "Pour les cas retenus." }
+      - { id: charte-ia, nom: "Charte d'usage de l'IA", format: "1-2 pages", description: "Règles simples, outils autorisés, données interdites." }
+      - { id: carte-parties-prenantes, nom: "Carte des parties prenantes", format: "Matrice", description: "Influence / attitude + actions." }
+    criteres:
+      - { id: P1-C1, competence_id: C1.1, indicateur: "Délais et volumes recalculés à partir des données (et non repris des déclarations), écarts avec les chiffres cités expliqués" }
+      - { id: P1-C2, competence_id: C1.2, indicateur: "≥ 6 cas qualifiés ; « ChatGPT maison répondant seul aux clients » requalifié ou écarté avec justification" }
+      - { id: P1-C3, competence_id: C1.3, indicateur: "Business case avec coûts d'exploitation (dont tokens), gains mesurables, hypothèses et temps de retour, dans le budget" }
+      - { id: P1-C4, competence_id: C1.4, indicateur: "Périmètre du MVP, critères de succès mesurables, arbitrages proposés entre Gwenola, Hervé, Franck et Soazig" }
+      - { id: P1-C5, competence_id: C6.1, indicateur: "Données personnelles cartographiées, base légale et minimisation justifiées ; candidatures et IBAN traités à part" }
+      - { id: P1-C6, competence_id: C6.2, indicateur: "Qualification AI Act correcte (déployeur, pas de haut risque pour les cas retenus sauf justification) et calendrier post-Omnibus exact" }
+      - { id: P1-C7, competence_id: C6.3, indicateur: "Charte applicable : outils autorisés, données interdites, validation humaine, transparence" }
+      - { id: P1-C8, competence_id: C7.3, indicateur: "Carte des parties prenantes et actions concrètes pour Soazig (réticente) et Thierry (bloquant)" }
+
+  - id: P2
+    titre: "Automatiser le traitement des demandes entrantes"
+    objectif: "Chaque message entrant est classé, rattaché au bon contact, enregistré dans le CRM et reçoit un brouillon de réponse relu par l'ADV — de façon fiable et sûre."
+    duree_estimee_h: 12
+    competences: [C2.1, C2.2, C2.3, C2.4, C3.1, C5.3, C6.1]
+    consignes_md: |
+      Construisez avec **n8n** (ou l'outil de votre choix) le workflow de traitement de la boîte contact@. Utilisez l'**API sandbox** (onglet *Doc API*) : inbox, contacts, demandes, tickets, outbox.
+
+      **Règles métier à respecter**
+      - Classer chaque message : demande de devis (avec le bon `type_demande`), SAV, information, candidature, fournisseur, spam, autre.
+      - **Devis** → retrouver le contact existant (par email, sans tenir compte de la casse) ou le créer ; créer une **demande** avec `canal` (`email` ou `formulaire_site`), `type_demande`, `resume`, `code_postal`/`commune` si connus, `urgence`, et **`source_message_id`** = `message_id` du message entrant. Si des informations essentielles manquent, `a_verifier: true` et un brouillon qui les demande.
+      - **SAV** → créer un **ticket** (`produit`, `symptome`, `priorite`, `source_message_id`) — pas de demande.
+      - **Zone d'intervention** : respecter la FAQ commerciale (documents internes). Hors zone : pas de demande, un brouillon de réponse courtois.
+      - **Candidatures, fournisseurs, spam** : rien dans le CRM commercial.
+      - **Réponses** : un brouillon par message nécessitant une réponse, déposé dans l'outbox avec `statut: brouillon` (ou `a_valider`) et `source_message_id`. **Jamais `envoye`.**
+      - **Données sensibles** : aucune coordonnée bancaire ne doit être recopiée dans le CRM.
+      - **Traçabilité et idempotence** : un même `message_id` livré deux fois ne doit produire qu'un seul enregistrement. Acquitter chaque message traité.
+
+      **Vérification** : lancez la campagne « Flux entrants — septembre » depuis le **Testeur**, laissez votre workflow traiter l'inbox, puis cliquez sur **Vérifier**. Relancez-la avec le **mode chaos** activé (429, 503, latence) : votre workflow doit tenir.
+
+      **Livrables** : blueprint, export JSON du workflow (sans secrets), prompt(s) versionné(s), résultats du testeur (normal + chaos), runbook d'une page pour Yann Le Du.
+    livrables:
+      - { id: blueprint-p2, nom: "Blueprint du workflow", format: "Schéma + texte", description: "Déclencheur, étapes, données, branches, erreurs, validation humaine." }
+      - { id: export-n8n-p2, nom: "Export du workflow", format: "JSON n8n", description: "Sans identifiants ni clés." }
+      - { id: prompts-p2, nom: "Prompts versionnés", format: "Markdown", description: "Prompt système, schéma de sortie, exemples." }
+      - { id: resultats-p2, nom: "Résultats du testeur", format: "Export JSON", description: "Campagne normale et campagne en mode chaos." }
+      - { id: runbook-p2, nom: "Runbook", format: "1 page", description: "Exploitation, reprise sur erreur, secrets, contacts." }
+    criteres:
+      - { id: P2-C1, competence_id: C2.1, indicateur: "Blueprint documenté avant construction, validation humaine explicite" }
+      - { id: P2-C2, competence_id: C2.2, indicateur: "Appels API corrects (auth, pagination, rapprochement de contact)" }
+      - { id: P2-C3, competence_id: C2.3, indicateur: "Idempotence sur message_id, retry sur 429/503, messages en échec isolés" }
+      - { id: P2-C4, competence_id: C2.4, indicateur: "Runbook exploitable par le référent, secrets hors workflow" }
+      - { id: P2-C5, competence_id: C3.1, indicateur: "Sortie structurée validée, catégorie d'incertitude, robustesse (anglais, formulaire, spam)" }
+      - { id: P2-C6, competence_id: C5.3, indicateur: "Aucune action déclenchée par une injection de prompt", bloquant: true }
+      - { id: P2-C7, competence_id: C6.1, indicateur: "Minimisation : pas d'IBAN ni de candidature dans le CRM commercial" }
+
+  - id: P3
+    titre: "Assistant SAV et qualité des données"
+    objectif: "Donner aux techniciens un assistant fiable sur la documentation interne et assainir le fichier clients."
+    duree_estimee_h: 12
+    competences: [C3.2, C3.4, C4.1, C4.2]
+    consignes_md: |
+      **A. Assistant SAV (RAG)**
+      - Récupérez les documents via `GET /documents` (Markdown) et construisez un assistant qui répond aux questions des techniciens **en citant ses sources** (identifiants de documents) et qui **refuse de répondre** quand l'information n'est pas dans la documentation.
+      - Lancez la campagne « Questions des techniciens SAV » dans le **Testeur**, récupérez les questions (`GET /rag/questions`), soumettez vos réponses (`POST /rag/answers`), puis **Vérifiez**.
+      - Constituez votre propre jeu d'évaluation (au moins 10 questions) **avant** d'optimiser, et comparez au moins deux configurations (découpage, modèle ou prompt) de façon chiffrée.
+
+      **B. Assainissement du CRM**
+      - Auditez la qualité de la ressource `contacts` (doublons, formats, espaces, emails invalides).
+      - Écrivez un **nœud Code ou un script** (JavaScript ou Python) qui normalise les téléphones au format **E.164** (`+33612345678`), met les emails en minuscules sans espaces, supprime les espaces parasites des noms, et **fusionne les doublons** selon des règles explicites (sans supprimer d'information utile).
+      - Appliquez vos corrections via l'API, puis lancez la campagne « Qualité du fichier clients » et **Vérifiez**.
+
+      **Livrables** : note technique (choix, limites, résultats chiffrés), jeu d'évaluation, code, résultats du testeur.
+    livrables:
+      - { id: assistant-sav, nom: "Assistant SAV", format: "Workflow n8n ou code", description: "RAG avec citations et refus hors corpus." }
+      - { id: jeu-eval, nom: "Jeu d'évaluation", format: "Tableur ou JSON", description: "≥ 10 questions, résultats de ≥ 2 configurations." }
+      - { id: script-qualite, nom: "Script de nettoyage", format: "JS ou Python", description: "Normalisation et fusion des doublons, règles explicites." }
+      - { id: note-technique-p3, nom: "Note technique", format: "2-3 pages", description: "Choix, limites, résultats chiffrés." }
+    criteres:
+      - { id: P3-C1, competence_id: C3.2, indicateur: "Score RAG ≥ 80 %, sources citées, refus corrects hors corpus" }
+      - { id: P3-C2, competence_id: C3.4, indicateur: "Jeu d'évaluation construit avant optimisation, comparaison chiffrée de 2 configurations" }
+      - { id: P3-C3, competence_id: C4.1, indicateur: "Code lisible, testé, gestion d'erreurs" }
+      - { id: P3-C4, competence_id: C4.2, indicateur: "Doublons fusionnés par règles explicites, formats normalisés, aucune suppression massive", bloquant: true }
+
+  - id: P4
+    titre: "Architecture cible et restitution"
+    objectif: "Proposer une trajectoire crédible, sûre et finançable, et convaincre une dirigeante enthousiaste et un DAF sceptique."
+    duree_estimee_h: 8
+    competences: [C5.1, C5.2, C5.4, C7.1, C7.2, C7.4, C1.3]
+    consignes_md: |
+      1. **Dossier d'architecture cible** (4-6 pages) : schéma des composants et des flux (boîte contact, formulaire, n8n, LLM, CRM, documents, validation ADV, supervision), **dossier de choix** du modèle et de l'hébergement (au moins 2 options comparées, dont une option d'hébergement dans l'UE), coût mensuel estimé, menaces principales et mesures (OWASP LLM), indicateurs de supervision, réversibilité.
+      2. **Interface de validation** : maquette de l'écran (ou de la vue) qui permet à l'ADV de relire et valider les brouillons en moins de 30 secondes par message.
+      3. **Pitch deck** (8-12 slides) pour Gwenola et Hervé : problème chiffré, solution, démonstration, coûts, risques, feuille de route 6 mois, décision attendue. Prévoyez les objections d'Hervé.
+      4. **Plan d'accompagnement et de formation** : littératie IA pour tous (art. 4), formation spécifique ADV et commerciaux, rôle de Yann Le Du, place de Thierry Le Bihan dans la capture des savoir-faire.
+
+      Soutenance : utilisez le mode `/jury` du projet Claude.
+    livrables:
+      - { id: architecture, nom: "Dossier d'architecture cible", format: "PDF ou page", description: "Schéma, choix argumentés, coûts, sécurité, supervision." }
+      - { id: maquette-validation, nom: "Maquette de validation", format: "Image ou prototype", description: "Écran de relecture des brouillons." }
+      - { id: pitch-deck, nom: "Pitch deck", format: "8-12 slides", description: "Orienté décision." }
+      - { id: plan-accompagnement, nom: "Plan d'accompagnement et de formation", format: "Document", description: "Publics, objectifs évaluables, calendrier." }
+    criteres:
+      - { id: P4-C1, competence_id: C5.1, indicateur: "Architecture dimensionnée pour une PME sans DSI, réversible, intégrée à l'existant (Batipro sans API)" }
+      - { id: P4-C2, competence_id: C5.2, indicateur: "Comparaison pondérée ≥ 2 options, hébergement UE argumenté, modèle de repli" }
+      - { id: P4-C3, competence_id: C5.4, indicateur: "Indicateurs techniques et métier, seuils d'alerte, suivi des coûts" }
+      - { id: P4-C4, competence_id: C7.1, indicateur: "Maquette de validation centrée sur l'ADV" }
+      - { id: P4-C5, competence_id: C7.2, indicateur: "Pitch orienté décision, chiffré, objections du DAF traitées" }
+      - { id: P4-C6, competence_id: C7.4, indicateur: "Plan de formation avec objectifs évaluables, lien avec l'art. 4 de l'AI Act" }
+      - { id: P4-C7, competence_id: C1.3, indicateur: "Coûts d'exploitation cohérents avec la volumétrie mesurée" }

@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --surface-2: #efede7;
+  --fg: #1c2230;
+  --muted: #5b6272;
+  --line: #dcd8ce;
+  --accent: #0f6f68;
+  --accent-soft: #dcefeb;
+  --accent-fg: #ffffff;
+  --warn: #9a5b00;
+  --warn-soft: #fbefd9;
+  --danger: #b4233c;
+  --danger-soft: #fbe3e7;
+  --ok: #1f7a3d;
+  --ok-soft: #dff1e4;
+  --code-bg: #f0eee8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151c;
+    --surface: #1a1e27;
+    --surface-2: #222733;
+    --fg: #e7e9ee;
+    --muted: #9aa1b0;
+    --line: #2f3542;
+    --accent: #4fc1b5;
+    --accent-soft: #173a37;
+    --accent-fg: #0b1512;
+    --warn: #e7b25c;
+    --warn-soft: #3a2d16;
+    --danger: #f07a8e;
+    --danger-soft: #3b1c24;
+    --ok: #6fcf8f;
+    --ok-soft: #173222;
+    --code-bg: #232835;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-display), ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Contenu Markdown ─────────────────────────────────────────────────── */
+.prose-lab {
+  line-height: 1.65;
+  font-size: 0.975rem;
+  overflow-wrap: anywhere;
+}
+.prose-lab > * + * {
+  margin-top: 0.85em;
+}
+.prose-lab h1 {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-top: 0.2em;
+}
+.prose-lab h2 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 1.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--line);
+}
+.prose-lab h3 {
+  font-size: 1.1rem;
+  font-weight: 650;
+  margin-top: 1.5em;
+}
+.prose-lab h4 {
+  font-weight: 650;
+  margin-top: 1.2em;
+}
+.prose-lab a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-lab ul {
+  list-style: disc;
+  padding-left: 1.3em;
+}
+.prose-lab ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+}
+.prose-lab li + li {
+  margin-top: 0.3em;
+}
+.prose-lab blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 0.6em 1em;
+  border-radius: 0 6px 6px 0;
+}
+.prose-lab code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.prose-lab pre {
+  background: var(--code-bg);
+  padding: 0.9em 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.prose-lab pre code {
+  background: transparent;
+  padding: 0;
+}
+.prose-lab hr {
+  border-color: var(--line);
+  margin: 2em 0;
+}
+.prose-lab .table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.prose-lab table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.prose-lab th,
+.prose-lab td {
+  padding: 0.5em 0.7em;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.prose-lab th {
+  background: var(--surface-2);
+  font-weight: 600;
+}
+.prose-lab tr:last-child td {
+  border-bottom: none;
+}
+.prose-lab strong {
+  font-weight: 650;
+}

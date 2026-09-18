@@ -1,0 +1,19 @@
+# n8n en local pour les cas pratiques du laboratoire.
+# Démarrer :  docker compose -f tools/n8n/docker-compose.yml up -d   → http://localhost:5678
+# Les données (workflows, credentials chiffrés) sont conservées dans ./n8n-data (ignoré par git).
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=Europe/Paris
+      - TZ=Europe/Paris
+      - N8N_SECURE_COOKIE=false
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      # Clé de chiffrement des credentials : à définir une fois pour toutes (fichier .env à côté de ce fichier).
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:?Définissez N8N_ENCRYPTION_KEY dans tools/n8n/.env}
+    volumes:
+      - ../../n8n-data:/home/node/.n8n
