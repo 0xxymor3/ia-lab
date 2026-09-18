@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { checkPassword, createSessionToken, labPasswordConfigured, SESSION_COOKIE } from "@/lib/auth";
+import { checkPassword, createSessionToken, labConfigured, SESSION_COOKIE } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "Connexion" };
 
@@ -23,8 +23,8 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
     <div className="mx-auto max-w-sm px-4 py-16">
       <h1 className="font-serif text-2xl font-semibold">Espace candidat</h1>
       <p className="text-sm text-muted mt-2">Le hub d&apos;immersion et le testeur sont réservés au candidat.</p>
-      {!labPasswordConfigured() ? (
-        <p className="mt-6 text-sm text-danger">Mot de passe non configuré (variable LAB_PASSWORD).</p>
+      {!labConfigured() ? (
+        <p className="mt-6 text-sm text-danger">Espace candidat non configuré : définissez les variables LAB_PASSWORD et SANDBOX_SECRET dans Vercel, puis redéployez.</p>
       ) : (
         <form action={login} className="mt-6 space-y-4">
           <input type="hidden" name="next" value={next} />

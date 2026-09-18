@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import crypto from "node:crypto";
 import { getCase } from "@/lib/content";
-import { sandboxApiKey } from "@/lib/auth";
+import { labConfigured, sandboxApiKey } from "@/lib/auth";
 import { Sandbox } from "@/lib/sandbox/state";
 import { openApiSpec } from "@/lib/sandbox/openapi";
 import { latestRun, getRun, ragQuestions, saveRagAnswers } from "@/lib/runner/campaigns";
@@ -67,6 +67,7 @@ async function handle(req: NextRequest, ctx: Ctx) {
   if (path.length === 1 && path[0] === "openapi.json" && method === "GET")
     return json(openApiSpec(pack, req.nextUrl.origin));
 
+  if (!labConfigured()) return error(503, "non_configure", "Sandbox non configuré (SANDBOX_SECRET / LAB_PASSWORD manquants).");
   if (!authorized(req, caseId)) return error(401, "non_authentifie", "Clé d'API absente ou invalide (en-tête X-API-Key).");
 
   const sb = new Sandbox(pack);

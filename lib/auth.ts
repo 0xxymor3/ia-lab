@@ -3,27 +3,34 @@ import crypto from "node:crypto";
 export const SESSION_COOKIE = "lab_session";
 const SESSION_DAYS = 14;
 
-function secret() {
-  const s = process.env.SANDBOX_SECRET;
-  if (s) return s;
-  if (process.env.NODE_ENV === "production") throw new Error("SANDBOX_SECRET manquant");
-  return "dev-secret-a-remplacer";
+// En production, les secrets DOIVENT être définis (le dépôt est public : aucun secret par défaut).
+// Sans eux, l'espace candidat et l'API sandbox restent désactivés, les pages publiques fonctionnent.
+function secret(): string | null {
+  if (process.env.SANDBOX_SECRET) return process.env.SANDBOX_SECRET;
+  return process.env.NODE_ENV === "production" ? null : "dev-secret-a-remplacer";
 }
 
-export function labPasswordConfigured() {
-  return Boolean(process.env.LAB_PASSWORD) || process.env.NODE_ENV !== "production";
+function password(): string | null {
+  if (process.env.LAB_PASSWORD) return process.env.LAB_PASSWORD;
+  return process.env.NODE_ENV === "production" ? null : "lab";
+}
+
+export function labConfigured() {
+  return Boolean(secret() && password());
 }
 
 export function checkPassword(candidate: string) {
-  const expected = process.env.LAB_PASSWORD ?? (process.env.NODE_ENV !== "production" ? "lab" : undefined);
-  if (!expected) return false;
+  const expected = password();
+  if (!expected || !secret()) return false;
   const a = crypto.createHash("sha256").update(candidate).digest();
   const b = crypto.createHash("sha256").update(expected).digest();
   return crypto.timingSafeEqual(a, b);
 }
 
 function hmac(value: string) {
-  return crypto.createHmac("sha256", secret()).update(value).digest("hex");
+  const s = secret();
+  if (!s) throw new Error("SANDBOX_SECRET manquant");
+  return crypto.createHmac("sha256", s).update(value).digest("hex");
 }
 
 export function createSessionToken() {
@@ -32,7 +39,7 @@ export function createSessionToken() {
 }
 
 export function verifySessionToken(token: string | undefined) {
-  if (!token) return false;
+  if (!token || !secret()) return false;
   const [exp, sig] = token.split(".");
   if (!exp || !sig || Number(exp) < Date.now()) return false;
   const expected = hmac(`session:${exp}`);
